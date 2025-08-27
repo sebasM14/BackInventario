@@ -1,35 +1,36 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Usuario } from '../usuario/usuario.entity';
 
-
 @Table({
   tableName: 'accesos',
   schema: 'public',
   timestamps: false,
 })
-export class Acceso extends Model<Acceso> {
+export class Acceso extends Model {
+  
   @ForeignKey(() => Usuario)
   @Column({
     type: DataType.INTEGER,
-    primaryKey: true,
     field: 'cod_usuario',
+    primaryKey: true,
   })
-  codUsuario: number;
+  declare codUsuario: number;
 
   @Column({
     type: DataType.STRING(250),
     allowNull: false,
     field: 'nombre_acceso',
+    unique: true,
   })
-  nombreAcceso: string;
+  declare nombreAcceso: string;
 
   @Column({
-    type: DataType.STRING(500),
+    type: DataType.STRING(250),
     allowNull: false,
     field: 'clave_acceso',
   })
-  claveAcceso: string;
+  declare claveAcceso: string;
 
   @BelongsTo(() => Usuario)
-  usuario: Usuario;
+  declare usuario: Usuario;
 }

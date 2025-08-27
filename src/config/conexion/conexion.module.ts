@@ -24,10 +24,7 @@ import { Acceso } from 'src/modelos/acceso/acceso.entity';
             logging: true,
           });
 
-          
-          sequelize.addModels([Usuario,Acceso,Role,Productos
-            //modelos
-          ]);
+          sequelize.addModels([Usuario, Acceso, Role, Productos]);
 
           await sequelize.authenticate();
           console.log(
@@ -35,8 +32,7 @@ import { Acceso } from 'src/modelos/acceso/acceso.entity';
               String(process.env.BASE_DATOS),
           );
 
-          await sequelize.sync(); // sincroniza tablas ( en desarrollo)
-
+          await sequelize.sync();
           return sequelize;
         } catch (miError) {
           console.error('❌Falló al realizar la conexión', miError);
@@ -44,7 +40,12 @@ import { Acceso } from 'src/modelos/acceso/acceso.entity';
         }
       },
     },
+   
+    {
+      provide: Sequelize,
+      useExisting: 'SEQUELIZE'
+    }
   ],
-  exports: ['SEQUELIZE'],
+  exports: ['SEQUELIZE', Sequelize], 
 })
 export class ConexionModule {}
