@@ -6,7 +6,7 @@ import { Acceso } from 'src/modelos/acceso/acceso.entity';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Acceso]) // ✅ Esto ahora funcionará
+    SequelizeModule.forFeature([Acceso]) 
   ],
   providers: [AccesoService],
   controllers: [AccesoController],

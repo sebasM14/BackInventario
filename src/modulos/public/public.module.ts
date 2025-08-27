@@ -16,10 +16,10 @@ const routes: Routes = [
 @Module({
     imports: [
         RouterModule.register(routes), 
-        AccesoModule, // ✅ Estos módulos ya exportan sus servicios
+        AccesoModule, 
         RegistroModule
     ],
     exports: [RouterModule],
-    // ❌ REMUEVE providers y controllers - ya están en sus módulos respectivos
+   
 })
 export class PublicModule {}

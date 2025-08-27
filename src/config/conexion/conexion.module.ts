@@ -2,9 +2,11 @@ import { Global, Module } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 import { ConfigService } from '@nestjs/config';
 import { Usuario } from 'src/modelos/usuario/usuario.entity';
-import { Productos } from 'src/modelos/productos/producto.entity';
 import { Role } from 'src/modelos/rol/rol.entity';
 import { Acceso } from 'src/modelos/acceso/acceso.entity';
+import { Producto } from 'src/modelos/productos/producto.entity';
+import { Compra } from 'src/modelos/compras/compras.entity';
+import { DetalleCompra } from 'src/modelos/detalle_compra/detalle_compra.entity';
 
 @Global()
 @Module({
@@ -24,7 +26,7 @@ import { Acceso } from 'src/modelos/acceso/acceso.entity';
             logging: true,
           });
 
-          sequelize.addModels([Usuario, Acceso, Role, Productos]);
+          sequelize.addModels([Usuario, Acceso, Role, Producto,Compra,DetalleCompra]);
 
           await sequelize.authenticate();
           console.log(

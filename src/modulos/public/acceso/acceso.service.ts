@@ -15,7 +15,7 @@ export class AccesoService {
     @Inject('SEQUELIZE') 
     private readonly sequelize: Sequelize,
   ) {}
-// acceso.service.ts
+
 public async sesion(objAcceso: Acceso): Promise<any> {
   const usuarioExiste = await this.accesoRepository.findOne({
     where: { nombreAcceso: objAcceso.nombreAcceso },

@@ -15,7 +15,7 @@ export class RegistroService {
     @Inject('SEQUELIZE')
     private sequelize: Sequelize,
   ) {}
-// registro.service.ts
+
 public async nuevoUsuario(objAcceso: Acceso, objUsuario: Usuario): Promise<any> {
   try {
     console.log('Verificando usuario:', objAcceso.nombreAcceso);
@@ -52,8 +52,6 @@ public async nuevoUsuario(objAcceso: Acceso, objUsuario: Usuario): Promise<any> 
       claveAcceso: claveCifrada
     } as any);
 
-    // ✅ SOLUCIÓN: Usar la misma sintaxis que funciona en AccesoService
-    // Obtener datos de sesión con query nativa - USANDO BIND
     console.log('Ejecutando query con codUsuario:', codigoUsuario);
     
     const [datosSesion] = await this.sequelize.query(
@@ -64,7 +62,7 @@ public async nuevoUsuario(objAcceso: Acceso, objUsuario: Usuario): Promise<any> 
       INNER JOIN usuarios u ON u.cod_usuario = a.cod_usuario 
       WHERE a.cod_usuario = $1`,
       { 
-        bind: [codigoUsuario], // ✅ Usar BIND como en AccesoService
+        bind: [codigoUsuario], 
         raw: true 
       }
     );
