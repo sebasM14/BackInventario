@@ -92,4 +92,10 @@ export class CompraController {
     if (isNaN(id)) throw new HttpException('Código inválido', HttpStatus.BAD_REQUEST);
     return this.compraService.eliminar(id);
   }
+
+   
+  @Get('detalles')
+  obtenerDetalles() {
+    return this.compraService.consultarDetalles();
+  }
 }

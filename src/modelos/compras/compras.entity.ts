@@ -46,4 +46,7 @@ export class Compra extends Model {
 
   @BelongsTo(() => Usuario)
   declare usuario: Usuario;
+
+  
+
 }

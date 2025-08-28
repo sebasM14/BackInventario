@@ -56,4 +56,5 @@ export class Producto extends Model {
     type: DataType.BOOLEAN,
   })
   declare estado: boolean;
+
 }

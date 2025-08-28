@@ -1,6 +1,9 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Compra } from 'src/modelos/compras/compras.entity';
 import { DetalleCompra } from 'src/modelos/detalle_compra/detalle_compra.entity';
+import { Producto } from 'src/modelos/productos/producto.entity';
+import { Usuario } from 'src/modelos/usuario/usuario.entity';
 
 @Injectable()
 export class DetalleCompraService {
@@ -63,6 +66,56 @@ export class DetalleCompraService {
     } catch (error) {
       console.error(error);
       throw new HttpException('Error al eliminar detalle', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  
+  // Generar factura completa de una compra
+  public async generarFactura(codCompra: number): Promise<any> {
+    try {
+      const detalles = await this.detalleRepositorio.findAll({
+        where: { codCompra },
+        include: [
+          {
+            model: Compra,
+            as: 'compra',
+            include: [{ model: Usuario, as: 'usuario', attributes: ['codUsuario', 'nombreUsuario'] }],
+          },
+          { model: Producto, as: 'producto', attributes: ['codProducto', 'nombreProducto', 'precio'] },
+        ],
+      });
+
+      if (!detalles || detalles.length === 0) {
+        throw new HttpException('Compra no encontrada o sin detalles', HttpStatus.NOT_FOUND);
+      }
+
+      const compra = detalles[0].compra;
+      const usuario = compra.usuario;
+
+      // Armamos la factura
+      const factura = {
+        factura: {
+          codCompra: compra.codCompra,
+          fechaCompra: compra.fechaCompra,
+          cliente: {
+            codUsuario: usuario.codUsuario,
+            nombre: usuario.nombreUsuario,
+          },
+          productos: detalles.map((d) => ({
+            codProducto: d.producto.codProducto,
+            nombreProducto: d.producto.nombreProducto,
+            cantidad: d.cantidad,
+            precioUnitario: d.precioUnitario,
+            subtotal: d.subtotal,
+          })),
+          total: compra.totalCompra,
+        },
+      };
+
+      return factura;
+    } catch (error) {
+      console.error(error);
+      throw new HttpException('Error al generar factura', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

@@ -1,2 +1,45 @@
-npm install -g http-server
+
+
+
+
+# Instrucciones del Software - Sistema de Inventario y Compras
+
+## 1. Requisitos
+- Node.js >= 18
+- npm >= 9
+- Base de datos PostgreSQL o MySQL
+- NestJS CLI instalado (`npm i -g @nestjs/cli`)
+
+## 2. Instalación
+1. Clonar el repositorio:
+```bash
+git clone https://github.com/tuUsuario/mi-proyecto.git
+cd mi-proyecto
+npm install
+
+
+DB_HOST=localhost
+DB_USER=usuario
+DB_PASS=contraseña
+DB_NAME=nombre_basedatos
+JWT_SECRET=claveSecreta
+
+
+Ejecutar el proyecto
+nest start --watch
+
+{
+  "nombreAcceso": "usuario1",
+  "claveAcceso": "1234"
+}
+
+
+{
+  "tokenApp": "jwtToken",
+  "usuario": "NombreUsuario",
+  "rol": "Administrador"
+}
+
+
+comando para correr la documentacion
 http-server docs

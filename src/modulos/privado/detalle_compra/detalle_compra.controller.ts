@@ -100,4 +100,22 @@ export class DetalleCompraController {
     if (isNaN(id)) throw new HttpException('Código inválido', HttpStatus.BAD_REQUEST);
     return this.detalleService.eliminar(id);
   }
+
+
+  
+  /**
+   * @api {get} /privado/detalle-compras/factura/:codCompra Generar factura
+   * @apiName GenerarFactura
+   * @apiGroup DetalleCompra
+   *
+   * @apiParam {Number} codCompra ID de la compra
+   *
+   * @apiSuccess {Object} factura Factura con información completa
+   */
+  @Get('factura/:codCompra')
+  generarFactura(@Param('codCompra') codCompra: string) {
+    const id = Number(codCompra);
+    if (isNaN(id)) throw new HttpException('Código inválido', HttpStatus.BAD_REQUEST);
+    return this.detalleService.generarFactura(id);
+  }
 }
