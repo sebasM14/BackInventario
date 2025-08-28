@@ -13,16 +13,17 @@
 ## 2. Instalación
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tuUsuario/mi-proyecto.git
+git clone https://github.com/sebasM14/BackInventario.git
 cd mi-proyecto
 npm install
 
 
-DB_HOST=localhost
-DB_USER=usuario
-DB_PASS=contraseña
-DB_NAME=nombre_basedatos
-JWT_SECRET=claveSecreta
+PUERTO=5432
+HOST="localhost"
+BASE_DATOS="bd_Inventario"
+USER=""
+clave=""
+PUERTO_SERVIDOR=3550
 
 
 Ejecutar el proyecto
